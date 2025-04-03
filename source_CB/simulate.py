@@ -2,6 +2,7 @@ from os.path import join
 import sys
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def load_data(load_dir, bid):
@@ -76,3 +77,11 @@ if __name__ == '__main__':
     for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
         stats = summary_stats(u, interior_mask)
         print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+
+    #plot
+    import plot 
+
+    plot.plt_1(all_u, building_ids)
+    plot.plt_2(all_u0, all_u)
+    plot.plt_3(all_u,all_interior_mask,building_ids)
+        
