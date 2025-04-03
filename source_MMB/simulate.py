@@ -1,7 +1,12 @@
 from os.path import join
 import sys
-
 import numpy as np
+import debugpy
+
+debugpy.listen(('0.0.0.0', 5678))
+print('Wait for debugger...')
+debugpy.wait_for_client()
+print('Connected!')
 
 
 def load_data(load_dir, bid):
@@ -11,7 +16,7 @@ def load_data(load_dir, bid):
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
 
-
+# @profile
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
     u = np.copy(u)
 
@@ -54,12 +59,12 @@ if __name__ == '__main__':
     building_ids = building_ids[:N]
 
     # Load floor plans
-    all_u0 = np.empty((N, 514, 514))
+    all_u0 = np.empty((N, 514, 514))  # images are saved here N is the amount of images and 514, 514 determines its size
     all_interior_mask = np.empty((N, 512, 512), dtype='bool')
     for i, bid in enumerate(building_ids):
         u0, interior_mask = load_data(LOAD_DIR, bid)
         all_u0[i] = u0
-        all_interior_mask[i] = interior_mask
+        all_interior_mask[i] = interior_mask    # interior mask is 512x512 black and white
 
     # Run jacobi iterations for each floor plan
     MAX_ITER = 20_000
