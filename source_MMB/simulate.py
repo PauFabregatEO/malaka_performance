@@ -2,13 +2,15 @@ from os.path import join
 import sys
 import numpy as np
 import multiprocessing as mp
+from time import perf_counter as time
+import matplotlib.pyplot as plt
 
-import debugpy
+# import debugpy
 
-debugpy.listen(('0.0.0.0', 5678))
-print('Wait for debugger...')
-debugpy.wait_for_client()
-print('Connected!')
+# debugpy.listen(('0.0.0.0', 5677))
+# print('Wait for debugger...')
+# debugpy.wait_for_client()
+# print('Connected!')
 
 
 def load_data(load_dir, bid):
@@ -48,20 +50,60 @@ def summary_stats(u, interior_mask):
     }
 
 def generate_chunks(num_workers, num_images):
+    '''This generates the indices'''
     items_chunk = num_images // num_workers
     full_chunks = [items_chunk] * num_workers
-    if num_images % num_workers != 0:
-        full_chunks.append(num_images % num_workers)
-    return 
+    for i, chunk in enumerate(full_chunks, start=1):
+        full_chunks[i-1] = i * chunk 
+    return full_chunks[:-1]
+    
 
-# Define common pool of temperatures for workers to write to directly
-def init_pool(all_u):
-    global all_u_workers
-    all_u_workers = all_u
 
 # This is the function passed to map
-def jacobi_worker():
-    pass
+def jacobi_worker(chunked_temps, chunked_masks):
+    # Allocate empty matrix for results
+    result = np.empty((len(chunked_temps), 514, 514))
+    for i, (u0, interior_mask) in enumerate(zip(chunked_temps, chunked_masks)):
+        u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
+        result[i] = u
+    return result
+
+
+def convert_results(results):
+    global all_u
+    np.copyto(all_u, np.array(results).flatten())
+
+
+
+def plot_speedup(x, y):
+    """
+    Plots a Speed-up graph.
+    
+    Parameters:
+    x (list): List of process counts (X-axis).
+    y (list): List of execution times (Y-axis, reference-based speed-up).
+    """
+    if len(x) != len(y) or len(y) == 0:
+        raise ValueError("Lists x and y must be of the same non-zero length")
+
+    # Compute speed-up values: Speed-up = (first execution time) / (other execution times)
+    y_speedup = [y[0] / val for val in y]
+
+    # Create the plot
+    plt.figure(figsize=(8, 5))
+    plt.plot(x, y_speedup, marker='o', linestyle='-', color='b', label="Speed-up")
+
+    # Labels and title
+    plt.xlabel("Number of processes")
+    plt.ylabel("Speed-up")
+    plt.title("Speed-up plot")
+    plt.legend()
+    plt.grid(True)
+
+    plt.savefig('Speed_up.png', dpi=300, bbox_inches='tight')  # High-quality save
+
+    # Show the plot
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -87,22 +129,43 @@ if __name__ == '__main__':
     # Run jacobi iterations for each floor plan
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
+    MAX_PROC = 20   # change this according to chosen CPU 
 
-
+    # This is where the processed results will be stored
     all_u = np.empty_like(all_u0)
-    for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
-        u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
-        all_u[i] = u
+    # This list will process the time taken to solve the jacobi
+    time_proc = np.empty(shape=MAX_PROC)
 
-    # Define workers to complete the Jacobi function
-    worker = mp.Pool(processes=num_processes, initializer=init_pool, initargs=all_u)
+    for num_processes in range(1, MAX_PROC+1):
+        print(f"Entering {num_processes} process round...")
+        chunk_indices = generate_chunks(num_processes, N)
+        # Generate both chunks
+        temp_chunks = np.split(all_u0, chunk_indices)
+        mask_chunks = np.split(all_interior_mask, chunk_indices)
+        
+        # Define workers to complete the Jacobi function
+        worker = mp.Pool(processes=num_processes)
+        print("Workers assigned")
+        t = time()
+        print("Entering starmap")
+        results = worker.starmap(jacobi_worker, zip(temp_chunks, mask_chunks))
+        t = time() - t
+        # Allocate time into the time list
+        time_proc[num_processes - 1] = t
+        print(f"Closing workers for {num_processes} round...")
+        worker.close()
+        worker.join()
+        print(f"{num_processes} workers closed!")
+        
+# All_u is now brought back to its original shape with all the data processed
+convert_results(results)
 
-    worker.close()
-    worker.join()
+# Plot the speed-up
+plot_speedup(list(range(1, MAX_PROC + 1)), time_proc)
 
-    # Print summary statistics in CSV format
-    stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
-    print('building_id, ' + ', '.join(stat_keys))  # CSV header
-    for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
-        stats = summary_stats(u, interior_mask)
-        print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+# Print summary statistics in CSV format
+stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
+print('building_id, ' + ', '.join(stat_keys))  # CSV header
+for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
+    stats = summary_stats(u, interior_mask)
+    print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
