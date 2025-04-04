@@ -1,6 +1,8 @@
 from os.path import join
 import sys
 import numpy as np
+import multiprocessing as mp
+
 import debugpy
 
 debugpy.listen(('0.0.0.0', 5678))
@@ -45,6 +47,22 @@ def summary_stats(u, interior_mask):
         'pct_below_15': pct_below_15,
     }
 
+def generate_chunks(num_workers, num_images):
+    items_chunk = num_images // num_workers
+    full_chunks = [items_chunk] * num_workers
+    if num_images % num_workers != 0:
+        full_chunks.append(num_images % num_workers)
+    return 
+
+# Define common pool of temperatures for workers to write to directly
+def init_pool(all_u):
+    global all_u_workers
+    all_u_workers = all_u
+
+# This is the function passed to map
+def jacobi_worker():
+    pass
+
 
 if __name__ == '__main__':
     # Load data
@@ -70,10 +88,17 @@ if __name__ == '__main__':
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
 
+
     all_u = np.empty_like(all_u0)
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
+
+    # Define workers to complete the Jacobi function
+    worker = mp.Pool(processes=num_processes, initializer=init_pool, initargs=all_u)
+
+    worker.close()
+    worker.join()
 
     # Print summary statistics in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
