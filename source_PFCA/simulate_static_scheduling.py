@@ -3,6 +3,7 @@ from os.path import join
 import sys
 import numpy as np
 import multiprocessing
+from plot import plot_u
 
 
 def load_data(load_dir, bid):
@@ -54,8 +55,10 @@ if __name__ == '__main__':
 
     if len(sys.argv) < 2:
         N = 1
+        n_proc = 1
     else:
         N = int(sys.argv[1])
+        n_proc = int(sys.argv[2])
     building_ids = building_ids[:N]
 
     # Load floor plans
@@ -72,26 +75,20 @@ if __name__ == '__main__':
     all_u = np.empty_like(all_u0)
     
     # Define parallelization parameters
-    n_proc = 4
     pool = multiprocessing.Pool(n_proc)
     chunk_size = len(all_u0) / n_proc
-    print(chunk_size)
     results_async = [pool.apply_async(jacobi_multiple, (u0_splitt,interior_mask_splitt))
                     for i, (u0_splitt, interior_mask_splitt) in enumerate(zip(np.array_split(all_u0,int(chunk_size)),
                                                                               np.array_split(all_interior_mask,int(chunk_size))))]
     
     all_u0 = np.concatenate([r.get() for r in results_async])
-    '''
-    for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
-        u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
-        all_u[i] = u
-    '''
-    
-    print(all_u0.shape)
-    
+
     # Print summary statistics in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
     print('building_id, ' + ', '.join(stat_keys))  # CSV header
     for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
         stats = summary_stats(u, interior_mask)
         print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+        
+    for u, id in zip(all_u0, building_ids):
+        plot_u(u, id, '_n{}'.format(n_proc))

@@ -1,0 +1,40 @@
+ERROR: Unable to locate a modulefile for 'python3/3.8.11'
+ERROR: Unable to locate a modulefile for 'cuda/8.0'
+Loading cudnn/v7.0-prod-cuda8
+  Module ERROR: couldn't read file "/apps/dcc/etc/ModulesSL64/modulebase/cudnn":
+    no such file or directory
+        while executing
+    "source /apps/dcc/etc/ModulesSL64/modulebase/cudnn"
+        (file "/apps/dcc/etc/ModulesAlma92/modulefiles/cudnn/v7.0-prod-cuda8"
+    line 9)
+    Please contact <root@localhost>
+ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
+Loaded module: cuda/11.8
+
+real	4m43.332s
+user	4m42.954s
+sys	0m0.193s
+
+real	9m9.726s
+user	9m9.329s
+sys	0m0.695s
+
+real	4m51.814s
+user	9m23.487s
+sys	0m0.541s
+
+real	3m4.212s
+user	10m59.133s
+sys	0m0.578s
+
+real	3m18.043s
+user	10m35.143s
+sys	0m0.635s
+
+real	5m3.864s
+user	9m17.363s
+sys	0m0.691s
+
+real	9m4.961s
+user	9m4.423s
+sys	0m0.708s
