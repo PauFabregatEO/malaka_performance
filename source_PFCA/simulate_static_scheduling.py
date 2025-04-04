@@ -1,6 +1,8 @@
+#!/usr/bin/python
 from os.path import join
 import sys
 import numpy as np
+import multiprocessing
 
 
 def load_data(load_dir, bid):
@@ -10,10 +12,9 @@ def load_data(load_dir, bid):
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
 
-
-def jacobi(u, interior_mask, max_iter, atol=1e-6):
+def jacobi(u, interior_mask, max_iter=20000, atol=1e-6):
     u = np.copy(u)
-
+    
     for i in range(max_iter):
         # Compute average of left, right, up and down neighbors, see eq. (1)
         u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
@@ -25,6 +26,12 @@ def jacobi(u, interior_mask, max_iter, atol=1e-6):
             break
     return u
 
+def jacobi_multiple(u_chunk, interior_mask_chunk, max_iter=20000, atol=1e-6):
+    u_output = np.zeros_like(u_chunk)
+    
+    for i, (u0, interior_mask) in enumerate(zip(u_chunk, interior_mask_chunk)):
+        u_output[i] = jacobi(u0, interior_mask, max_iter, atol)
+    return u_output
 
 def summary_stats(u, interior_mask):
     u_interior = u[1:-1, 1:-1][interior_mask]
@@ -38,8 +45,7 @@ def summary_stats(u, interior_mask):
         'pct_above_18': pct_above_18,
         'pct_below_15': pct_below_15,
     }
-
-
+    
 if __name__ == '__main__':
     # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
@@ -63,12 +69,26 @@ if __name__ == '__main__':
     # Run jacobi iterations for each floor plan
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
-
     all_u = np.empty_like(all_u0)
+    
+    # Define parallelization parameters
+    n_proc = 4
+    pool = multiprocessing.Pool(n_proc)
+    chunk_size = len(all_u0) / n_proc
+    print(chunk_size)
+    results_async = [pool.apply_async(jacobi_multiple, (u0_splitt,interior_mask_splitt))
+                    for i, (u0_splitt, interior_mask_splitt) in enumerate(zip(np.array_split(all_u0,int(chunk_size)),
+                                                                              np.array_split(all_interior_mask,int(chunk_size))))]
+    
+    all_u0 = np.concatenate([r.get() for r in results_async])
+    '''
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
-
+    '''
+    
+    print(all_u0.shape)
+    
     # Print summary statistics in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
     print('building_id, ' + ', '.join(stat_keys))  # CSV header
