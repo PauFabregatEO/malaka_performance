@@ -71,7 +71,7 @@ def jacobi_worker(chunked_temps, chunked_masks):
 
 def convert_results(results):
     global all_u
-    np.copyto(all_u, np.array(results).flatten())
+    np.copyto(all_u, np.concatenate(results, axis=0))
 
 
 
