@@ -89,6 +89,11 @@ def plot_speedup(x, y):
     # Compute speed-up values: Speed-up = (first execution time) / (other execution times)
     y_speedup = [y[0] / val for val in y]
 
+    # Now, save the list as a text file 
+    with open(f"chunk_original.txt", "w") as p:
+        for n in range(len(y_speedup)):
+                p.write(f'{y_speedup[n]}\n')
+
     # Create the plot
     plt.figure(figsize=(8, 5))
     plt.plot(x, y_speedup, marker='o', linestyle='-', color='b', label="Speed-up")
@@ -162,6 +167,8 @@ convert_results(results)
 
 # Plot the speed-up
 plot_speedup(list(range(1, MAX_PROC + 1)), time_proc)
+
+
 
 # Print summary statistics in CSV format
 stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
