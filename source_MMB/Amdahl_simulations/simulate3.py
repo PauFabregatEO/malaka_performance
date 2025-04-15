@@ -130,6 +130,8 @@ if __name__ == '__main__':
     time_proc = np.empty(shape=MAX_PROC)
 
     for num_processes in range(1, MAX_PROC+1):
+        # Timing starts
+        t = time()
         print(f"Entering {num_processes} process round...")
         chunk_indices = generate_chunks(num_processes, N, SCRIPT_NUMBER)
         # Generate both chunks
@@ -139,7 +141,6 @@ if __name__ == '__main__':
         # Define workers to complete the Jacobi function
         worker = mp.Pool(processes=num_processes)
         print("Workers assigned")
-        t = time()
         print("Entering starmap")
         results = worker.starmap(jacobi_worker, zip(temp_chunks, mask_chunks))
         t = time() - t
