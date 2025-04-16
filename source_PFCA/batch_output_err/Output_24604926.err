@@ -1,0 +1,57 @@
+ERROR: Unable to locate a modulefile for 'python3/3.8.11'
+ERROR: Unable to locate a modulefile for 'cuda/8.0'
+Loading cudnn/v7.0-prod-cuda8
+  Module ERROR: couldn't read file "/apps/dcc/etc/ModulesSL64/modulebase/cudnn":
+    no such file or directory
+        while executing
+    "source /apps/dcc/etc/ModulesSL64/modulebase/cudnn"
+        (file "/apps/dcc/etc/ModulesAlma92/modulefiles/cudnn/v7.0-prod-cuda8"
+    line 9)
+    Please contact <root@localhost>
+ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
+Loaded module: cuda/11.8
+Traceback (most recent call last):
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Dynamic_starmap.py", line 79, in <module>
+    for u, interior_mask in zip(np.split(all_u0,int(chunk_size)),
+  File "<__array_function__ internals>", line 5, in split
+  File "/usr/lib64/python3.9/site-packages/numpy/lib/shape_base.py", line 872, in split
+    raise ValueError(
+ValueError: array split does not result in an equal division
+
+real	0m0.629s
+user	0m0.327s
+sys	0m0.247s
+
+real	5m40.121s
+user	35m8.000s
+sys	0m1.673s
+Traceback (most recent call last):
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Dynamic_starmap.py", line 79, in <module>
+    for u, interior_mask in zip(np.split(all_u0,int(chunk_size)),
+  File "<__array_function__ internals>", line 5, in split
+  File "/usr/lib64/python3.9/site-packages/numpy/lib/shape_base.py", line 872, in split
+    raise ValueError(
+ValueError: array split does not result in an equal division
+
+real	0m0.638s
+user	0m0.306s
+sys	0m0.218s
+Traceback (most recent call last):
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Dynamic_starmap.py", line 79, in <module>
+    for u, interior_mask in zip(np.split(all_u0,int(chunk_size)),
+  File "<__array_function__ internals>", line 5, in split
+  File "/usr/lib64/python3.9/site-packages/numpy/lib/shape_base.py", line 872, in split
+    raise ValueError(
+ValueError: array split does not result in an equal division
+
+real	0m0.620s
+user	0m0.313s
+sys	0m0.233s
+
+real	8m28.687s
+user	31m9.060s
+sys	0m2.235s
+
+real	14m35.204s
+user	26m49.506s
+sys	0m1.960s

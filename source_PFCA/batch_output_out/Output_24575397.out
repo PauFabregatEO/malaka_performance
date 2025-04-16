@@ -1,0 +1,62 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24575397: <HPC_mini_project_v0_pfca> in cluster <dcc> Done
+
+Job <HPC_mini_project_v0_pfca> was submitted from host <hpclogin1> by user <pfca> in cluster <dcc> at Mon Apr  7 10:22:44 2025
+Job was executed on host(s) <20*n-62-11-50>, in queue <hpc>, as user <pfca> in cluster <dcc> at Mon Apr  7 10:22:44 2025
+</zhome/3e/b/164967> was used as the home directory.
+</zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA> was used as the working directory.
+Started at Mon Apr  7 10:22:44 2025
+Terminated at Mon Apr  7 11:13:06 2025
+Results reported at Mon Apr  7 11:13:06 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J HPC_mini_project_v0_pfca
+#BSUB -q hpc
+#BSUB -o batch_output_out/Output_%J.out
+#BSUB -e batch_output_err/Output_%J.err
+#BSUB -W 3:00
+#BSUB -n 20
+#BSUB -R "rusage[mem=512MB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model == XeonGold6226R]"
+# -- end of LSF options -- 
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+#kernprof -l simulate.py
+time simulate_dynamic_scheduling_ChristosV.py 64 16 4
+time simulate_dynamic_scheduling_ChristosV.py 64 16 3
+time simulate_dynamic_scheduling_ChristosV.py 64 16 2
+time simulate_dynamic_scheduling_ChristosV.py 64 16 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   5394.46 sec.
+    Max Memory :                                 366 MB
+    Average Memory :                             303.48 MB
+    Total Requested Memory :                     10240.00 MB
+    Delta Memory :                               9874.00 MB
+    Max Swap :                                   -
+    Max Processes :                              20
+    Max Threads :                                24
+    Run time :                                   3113 sec.
+    Turnaround time :                            3022 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <batch_output_err/Output_24575397.err> for stderr output of this job.
+

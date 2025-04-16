@@ -14,10 +14,9 @@ source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613
 
 #kernprof -l simulate.py
-time simulate.py 32
-time simulate_static_scheduling.py 32 1
-time simulate_static_scheduling.py 32 2
-time simulate_static_scheduling.py 32 4
-time simulate_static_scheduling.py 32 8
-time simulate_static_scheduling.py 32 16
-time simulate_static_scheduling.py 32 20
+time Try.py 64 1
+time Try.py 64 2
+time Try.py 64 4
+time Try.py 64 8
+time Try.py 64 16
+time Try.py 64 20

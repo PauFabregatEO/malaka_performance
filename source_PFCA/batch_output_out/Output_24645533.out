@@ -1,0 +1,265 @@
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 0.0, 0.0, 0.0, 100.0
+10009, 0.0, 0.0, 0.0, 100.0
+10014, 0.0, 0.0, 0.0, 100.0
+10019, 0.0, 0.0, 0.0, 100.0
+10029, 0.0, 0.0, 0.0, 100.0
+10031, 0.0, 0.0, 0.0, 100.0
+10051, 0.0, 0.0, 0.0, 100.0
+10053, 0.0, 0.0, 0.0, 100.0
+10056, 0.0, 0.0, 0.0, 100.0
+10064, 0.0, 0.0, 0.0, 100.0
+Generating '/tmp/nsys-report-0d5c.qdstrm'
+[1/1] [0%                          ] output_profiler_10.nsys-rep[1/1] [0%                          ] output_profiler_10.nsys-rep[1/1] [0%                          ] output_profiler_10.nsys-rep[1/1] [7%                          ] output_profiler_10.nsys-rep[1/1] [0%                          ] output_profiler_10.nsys-rep[1/1] [9%                          ] output_profiler_10.nsys-rep[1/1] [==18%                       ] output_profiler_10.nsys-rep[1/1] [====27%                     ] output_profiler_10.nsys-rep[1/1] [=======36%                  ] output_profiler_10.nsys-rep[1/1] [=========45%                ] output_profiler_10.nsys-rep[1/1] [============54%             ] output_profiler_10.nsys-rep[1/1] [==============63%           ] output_profiler_10.nsys-rep[1/1] [=================73%        ] output_profiler_10.nsys-rep[1/1] [==================75%       ] output_profiler_10.nsys-rep[1/1] [========================100%] output_profiler_10.nsys-rep[1/1] [========================100%] output_profiler_10.nsys-rep
+Generated:
+    /zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/output_profiler_10.nsys-rep
+Generating SQLite file output_profiler_10.sqlite from output_profiler_10.nsys-rep
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/nvtxsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain NV Tools Extension (NVTX) data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/osrtsum.py]... 
+
+ ** OS Runtime Summary (osrtsum):
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)     Med (ns)    Min (ns)  Max (ns)   StdDev (ns)           Name         
+ --------  ---------------  ---------  -----------  -----------  --------  ---------  -----------  ----------------------
+     46.4       2694634221         37   72827951.9  100114497.0      1217  146527747   44194725.8  poll                  
+     46.2       2686536862          7  383790980.3  329639744.0  19269065  792465962  237983413.9  sem_wait              
+      4.6        264529532       1049     252173.1     244635.0      1055     572454      80504.2  open64                
+      2.3        136333624        469     290690.0      13488.0      1069   18214570    1023283.6  ioctl                 
+      0.3         15858432       1121      14146.7       4043.0      1002     446608      32758.0  read                  
+      0.1          4034696         23     175421.6      39136.0      2620     432880     177992.9  fread                 
+      0.0          2150224        332       6476.6       1696.5      1090     771364      42862.2  mmap64                
+      0.0          1352680        266       5085.3       1220.5      1001      41463       6745.4  fgets                 
+      0.0          1305545         42      31084.4       3602.5      1544     459893      88195.5  fopen                 
+      0.0          1069345        280       3819.1       2423.0      1919      28023       3230.7  munmap                
+      0.0           978616          4     244654.0     248352.0     45438     436474     220913.5  pthread_create        
+      0.0           882195          8     110274.4      18313.0     10470     769087     266244.6  sem_timedwait         
+      0.0           559978          8      69997.3       3271.5      1988     392745     139495.5  fopen64               
+      0.0           212923         19      11206.5       9189.0      2428      50463      11150.8  mmap                  
+      0.0           204403         57       3586.0       1313.0      1041     103338      13562.9  fclose                
+      0.0           132272          1     132272.0     132272.0    132272     132272          0.0  pthread_cond_wait     
+      0.0            49564          6       8260.7      10999.5      1434      12518       5193.9  pthread_cond_signal   
+      0.0            39877          1      39877.0      39877.0     39877      39877          0.0  waitpid               
+      0.0            36180          6       6030.0       6457.0      2320       9844       3093.0  pipe2                 
+      0.0            23279          6       3879.8       4427.0      1280       5713       1787.2  open                  
+      0.0            21180          7       3025.7       1989.0      1392       8090       2395.7  write                 
+      0.0            19416         11       1765.1       2118.0      1067       2342        553.7  fcntl                 
+      0.0            15731          2       7865.5       7865.5      4223      11508       5151.3  socket                
+      0.0             9536          1       9536.0       9536.0      9536       9536          0.0  connect               
+      0.0             7260          2       3630.0       3630.0      1568       5692       2916.1  fflush                
+      0.0             5422          3       1807.3       1828.0      1750       1844         50.3  signal                
+      0.0             4574          3       1524.7       1459.0      1332       1783        232.6  sigaction             
+      0.0             3856          2       1928.0       1928.0      1572       2284        503.5  fwrite                
+      0.0             3106          1       3106.0       3106.0      3106       3106          0.0  pthread_cond_broadcast
+      0.0             2758          1       2758.0       2758.0      2758       2758          0.0  fputs                 
+      0.0             1789          1       1789.0       1789.0      1789       1789          0.0  bind                  
+      0.0             1292          1       1292.0       1292.0      1292       1292          0.0  listen                
+      0.0             1161          1       1161.0       1161.0      1161       1161          0.0  dup2                  
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/cudaapisum.py]... 
+
+ ** CUDA API Summary (cudaapisum):
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)              Name            
+ --------  ---------------  ---------  ----------  ---------  --------  ---------  -----------  ----------------------------
+     77.7        622465615      80220      7759.5     5405.0      3811     891763       5669.1  cuLaunchKernel              
+     18.3        146773616          9  16308179.6   115630.0     75105  145831422   48571224.5  cudaMalloc                  
+      3.2         25422173         20   1271108.7   250560.0    103750   19651478    4337605.1  cuModuleLoadData            
+      0.3          2180445          2   1090222.5  1090222.5   1058295    1122150      45152.3  cudaHostAlloc               
+      0.2          1624421          9    180491.2    63472.0     49942     642240     229687.7  cuModuleUnload              
+      0.2          1560878        100     15608.8    12152.0      6530      62856       8865.9  cudaMemcpyAsync             
+      0.0           266889         40      6672.2     5615.0      3946      28361       4859.7  cudaLaunchKernel            
+      0.0           132955         10     13295.5     9110.5      8539      46346      11760.5  cudaMemsetAsync             
+      0.0           104374         39      2676.3     2094.0       832       5819       1499.6  cudaEventQuery              
+      0.0            89277        384       232.5      196.5       123        977        115.7  cuGetProcAddress            
+      0.0            80075         50      1601.5     1052.0       820      20407       2749.2  cudaStreamSynchronize       
+      0.0            71299         20      3565.0     3059.0      2914      10574       1685.1  cudaEventRecord             
+      0.0            63905         70       912.9      721.0       408       2846        552.8  cudaStreamIsCapturing_v10000
+      0.0            50517          1     50517.0    50517.0     50517      50517          0.0  cudaMemGetInfo              
+      0.0            47887         20      2394.4     2201.5      2047       4069        548.5  cudaEventCreateWithFlags    
+      0.0            35927         19      1890.9     1806.0      1705       3434        379.3  cudaEventDestroy            
+      0.0             3384          1      3384.0     3384.0      3384       3384          0.0  cuInit                      
+      0.0             1694          2       847.0      847.0       170       1524        957.4  cuModuleGetLoadingMode      
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpukernsum.py]... 
+
+ ** CUDA GPU Kernel Summary (gpukernsum):
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)     GridXYZ         BlockXYZ                                                     Name                                                
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  --------------  --------------  ----------------------------------------------------------------------------------------------------
+     85.8       1596774505      60000   26612.9   26144.0     11680     45856       5169.9  2048    1    1   128    1    1  cupy_add__float64_float64_float64                                                                   
+     14.1        263144959      20000   13157.2   12480.0     11232     26080       2076.2  2048    1    1   128    1    1  cupy_multiply__float_float64_float64                                                                
+      0.0           279170         10   27917.0   27488.0     27168     29537        827.4  2065    1    1   128    1    1  cupy_copy__float64_float64                                                                          
+      0.0           260257         10   26025.7   23936.0     12512     37024       8218.9     1    1    1   512    1    1  cupy_var_core_float64                                                                               
+      0.0           214658         10   21465.8   21440.0     21057     22272        368.6  2048    1    1   128    1    1  cupy_copy__float64_float64                                                                          
+      0.0           195906         10   19590.6   19536.5     19456     20096        184.6   512    1    1   512    1    1  cupy_scan_naive                                                                                     
+      0.0           141825         10   14182.5   14208.5     12000     16544       1554.7  2048    1    1   128    1    1  cupy_getitem_mask                                                                                   
+      0.0            90752         10    9075.2    9024.0      8928      9568        188.6   512    1    1   256    1    1  cupy_bsum_shfl                                                                                      
+      0.0            68481         20    3424.1    3360.0      3296      4000        170.3     1    1    1   512    1    1  cupy_cub_sum_pass2                                                                                  
+      0.0            65279         20    3264.0    3264.0      3136      3584        116.5     1    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceSingleTileKern…
+      0.0            65123         20    3256.2    3200.0      3104      3872        173.7     1    1    1     1    1    1  cupy_true_divide__float64_float_float64                                                             
+      0.0            61952         20    3097.6    3152.0      2912      3456        148.9     1    1    1     1    1    1  cupy_true_divide__int64_int_float64                                                                 
+      0.0            59360         20    2968.0    2912.0      2879      3456        135.8     1    1    1     1    1    1  cupy_multiply__float64_float_float64                                                                
+      0.0            36257         10    3625.7    3584.0      3520      3937        121.0     1    1    1   512    1    1  cupy_scan_naive                                                                                     
+      0.0            31936         10    3193.6    2912.5      2720      4192        561.6     1    1    1     1    1    1  cupy_fill                                                                                           
+      0.0            31456         10    3145.6    3072.0      3040      3520        175.3     1    1    1     1    1    1  cupy_sqrt__float64_float64                                                                          
+      0.0            29440         10    2944.0    2944.0      2912      3008         33.7     1    1    1     1    1    1  cupy_copy__float64_float64                                                                          
+      0.0            21088          4    5272.0    5296.0      5152      5344         84.2    48    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0            18976          4    4744.0    4719.5      4672      4865         84.8    48    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0            16928          4    4232.0    4256.0      4128      4288         71.0    28    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0            16097          4    4024.3    3904.5      3840      4448        285.4    28    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0            11776          2    5888.0    5888.0      5888      5888          0.0   768    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0            11617          2    5808.5    5808.5      5760      5857         68.6   768    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             9505          2    4752.5    4752.5      4704      4801         68.6    51    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             9473          2    4736.5    4736.5      4705      4768         44.5    51    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             9440          2    4720.0    4720.0      4704      4736         22.6    39    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             9120          2    4560.0    4560.0      4512      4608         67.9    27    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             8608          2    4304.0    4304.0      4288      4320         22.6    34    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             8576          2    4288.0    4288.0      4224      4352         90.5    34    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             8449          2    4224.5    4224.5      4224      4225          0.7    39    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             8288          2    4144.0    4144.0      4032      4256        158.4    13    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             8096          2    4048.0    4048.0      4032      4064         22.6    23    1    1   256    1    1  void cub::CUB_200200_350_370_500_520_600_610_700_750_800_860_890_900_NS::DeviceReduceKernel<cub::CU…
+      0.0             7744          2    3872.0    3872.0      3840      3904         45.3    27    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             7648          2    3824.0    3824.0      3808      3840         22.6    23    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             7169          2    3584.5    3584.5      3488      3681        136.5    13    1    1   512    1    1  cupy_cub_sum_pass1                                                                                  
+      0.0             5985          1    5985.0    5985.0      5985      5985          0.0   804    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             5952          1    5952.0    5952.0      5952      5952          0.0   804    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             5344          1    5344.0    5344.0      5344      5344          0.0   622    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             5344          1    5344.0    5344.0      5344      5344          0.0   622    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             5249          1    5249.0    5249.0      5249      5249          0.0   531    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             4991          1    4991.0    4991.0      4991      4991          0.0   531    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             4640          1    4640.0    4640.0      4640      4640          0.0   433    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             4640          1    4640.0    4640.0      4640      4640          0.0   433    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             4640          1    4640.0    4640.0      4640      4640          0.0   434    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             4608          1    4608.0    4608.0      4608      4608          0.0   426    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             4576          1    4576.0    4576.0      4576      4576          0.0   434    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             4512          1    4512.0    4512.0      4512      4512          0.0   426    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             4352          1    4352.0    4352.0      4352      4352          0.0   355    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             4288          1    4288.0    4288.0      4288      4288          0.0   355    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+      0.0             4031          1    4031.0    4031.0      4031      4031          0.0   205    1    1   128    1    1  cupy_less__float64_float_bool                                                                       
+      0.0             3712          1    3712.0    3712.0      3712      3712          0.0   205    1    1   128    1    1  cupy_greater__float64_float_bool                                                                    
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpumemtimesum.py]... 
+
+ ** GPU MemOps Summary (by Time) (gpumemtimesum):
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)      Operation     
+ --------  ---------------  -----  --------  --------  --------  --------  -----------  ------------------
+     78.6          3136469     20  156823.5  152801.0     36192    282850     122965.9  [CUDA memcpy HtoD]
+     15.7           627276     30   20909.2   23264.5      8096     33569       9571.6  [CUDA memcpy DtoD]
+      3.7           148577     10   14857.7   14704.0     14336     16160        558.9  [CUDA memset]     
+      1.9            75746     50    1514.9    1472.0      1440      2688        187.9  [CUDA memcpy DtoH]
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpumemsizesum.py]... 
+
+ ** GPU MemOps Summary (by Size) (gpumemsizesum):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+     44.893     30     1.496     2.114     0.262     2.114        0.888  [CUDA memcpy DtoD]
+     23.593     20     1.180     1.180     0.262     2.097        0.941  [CUDA memcpy HtoD]
+     21.136     10     2.114     2.114     2.114     2.114        0.000  [CUDA memset]     
+      0.000     50     0.000     0.000     0.000     0.000        0.000  [CUDA memcpy DtoH]
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/openmpevtsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain OpenMP event data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/khrdebugsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain KHR Extension (KHR_DEBUG) data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/khrdebuggpusum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain GPU KHR Extension (KHR_DEBUG) data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/vulkanmarkerssum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain Vulkan Debug Extension (Vulkan Debug Util) data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/vulkangpumarkersum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain GPU Vulkan Debug Extension (GPU Vulkan Debug markers) data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/dx11pixsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain DX11 CPU debug markers.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/dx12gpumarkersum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain DX12 GPU debug markers.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/dx12pixsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain DX12 CPU debug markers.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/wddmqueuesdetails.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain WDDM context data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/unifiedmemory.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/unifiedmemorytotals.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/umcpupagefaults.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain CUDA Unified Memory CPU page faults data.
+
+Processing [output_profiler_10.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/openaccsum.py]... 
+SKIPPED: output_profiler_10.sqlite does not contain OpenACC event data.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24645533: <HPC_mini_project_v0_pfca> in cluster <dcc> Done
+
+Job <HPC_mini_project_v0_pfca> was submitted from host <hpclogin1> by user <pfca> in cluster <dcc> at Fri Apr 11 15:33:08 2025
+Job was executed on host(s) <4*n-62-12-22>, in queue <c02613>, as user <pfca> in cluster <dcc> at Fri Apr 11 15:33:08 2025
+</zhome/3e/b/164967> was used as the home directory.
+</zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA> was used as the working directory.
+Started at Fri Apr 11 15:33:08 2025
+Terminated at Fri Apr 11 15:33:20 2025
+Results reported at Fri Apr 11 15:33:20 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J HPC_mini_project_v0_pfca
+#BSUB -q c02613
+#BSUB -o batch_output_out/Output_%J.out
+#BSUB -e batch_output_err/Output_%J.err
+#BSUB -W 01:00
+#BSUB -n 4
+#BUSB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model == XeonGold6226R]"
+# -- end of LSF options -- 
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+#kernprof -l simulate.py
+nsys profile -o output_profiler_10 python Assignment_9_partial.py 10
+nsys stats output_profiler_10.nsys-rep
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2.42 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4096.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   61 sec.
+    Turnaround time :                            12 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <batch_output_err/Output_24645533.err> for stderr output of this job.
+

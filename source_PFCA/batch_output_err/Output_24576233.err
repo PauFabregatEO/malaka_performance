@@ -10,12 +10,19 @@ Loading cudnn/v7.0-prod-cuda8
     Please contact <root@localhost>
 ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
 Loaded module: cuda/11.8
-./simulate.py: line 1: from: command not found
-import: unable to open X server `' @ error/import.c/ImportImageCommand/346.
-import: unable to open X server `' @ error/import.c/ImportImageCommand/346.
-./simulate.py: line 6: syntax error near unexpected token `('
-./simulate.py: line 6: `def load_data(load_dir, bid):'
 
-real	0m0.051s
-user	0m0.026s
-sys	0m0.012s
+real	11m54.536s
+user	23m35.457s
+sys	0m1.379s
+
+real	7m29.530s
+user	25m49.839s
+sys	0m1.366s
+
+real	6m27.757s
+user	34m19.642s
+sys	0m0.947s
+
+real	9m23.154s
+user	31m22.333s
+sys	0m1.054s

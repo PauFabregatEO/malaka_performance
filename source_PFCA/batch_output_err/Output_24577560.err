@@ -1,0 +1,20 @@
+ERROR: Unable to locate a modulefile for 'python3/3.8.11'
+ERROR: Unable to locate a modulefile for 'cuda/8.0'
+Loading cudnn/v7.0-prod-cuda8
+  Module ERROR: couldn't read file "/apps/dcc/etc/ModulesSL64/modulebase/cudnn":
+    no such file or directory
+        while executing
+    "source /apps/dcc/etc/ModulesSL64/modulebase/cudnn"
+        (file "/apps/dcc/etc/ModulesAlma92/modulefiles/cudnn/v7.0-prod-cuda8"
+    line 9)
+    Please contact <root@localhost>
+ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
+Loaded module: cuda/11.8
+Traceback (most recent call last):
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Try_v2.py", line 72, in <module>
+    for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
+NameError: name 'all_u' is not defined
+
+real	2m4.034s
+user	5m39.239s
+sys	0m0.448s

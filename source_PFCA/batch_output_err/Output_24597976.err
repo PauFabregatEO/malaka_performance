@@ -1,0 +1,147 @@
+ERROR: Unable to locate a modulefile for 'python3/3.8.11'
+ERROR: Unable to locate a modulefile for 'cuda/8.0'
+Loading cudnn/v7.0-prod-cuda8
+  Module ERROR: couldn't read file "/apps/dcc/etc/ModulesSL64/modulebase/cudnn":
+    no such file or directory
+        while executing
+    "source /apps/dcc/etc/ModulesSL64/modulebase/cudnn"
+        (file "/apps/dcc/etc/ModulesAlma92/modulefiles/cudnn/v7.0-prod-cuda8"
+    line 9)
+    Please contact <root@localhost>
+ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
+Loaded module: cuda/11.8
+
+real	9m2.081s
+user	60m1.764s
+sys	0m3.335s
+
+real	9m12.239s
+user	59m25.380s
+sys	0m3.610s
+
+real	9m14.069s
+user	59m5.902s
+sys	0m4.024s
+
+real	9m25.788s
+user	59m49.612s
+sys	0m4.261s
+
+real	8m32.054s
+user	60m41.520s
+sys	0m4.181s
+
+real	11m1.409s
+user	55m25.301s
+sys	0m4.081s
+Process ForkPoolWorker-3:
+Process ForkPoolWorker-2:
+Process ForkPoolWorker-1:
+Process ForkPoolWorker-7:
+Process ForkPoolWorker-8:
+Process ForkPoolWorker-6:
+Process ForkPoolWorker-5:
+Process ForkPoolWorker-4:
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+KeyboardInterrupt
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 364, in get
+    with self._rlock:
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+  File "/usr/lib64/python3.9/multiprocessing/synchronize.py", line 95, in __enter__
+    return self._semlock.__enter__()
+KeyboardInterrupt
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 114, in worker
+    task = get()
+  File "/usr/lib64/python3.9/multiprocessing/queues.py", line 365, in get
+    res = self._reader.recv_bytes()
+  File "/usr/lib64/python3.9/multiprocessing/connection.py", line 220, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/usr/lib64/python3.9/multiprocessing/connection.py", line 418, in _recv_bytes
+    buf = self._recv(4)
+  File "/usr/lib64/python3.9/multiprocessing/connection.py", line 383, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/usr/lib64/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/usr/lib64/python3.9/multiprocessing/pool.py", line 51, in starmapstar
+    return list(itertools.starmap(args[0], args[1]))
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Dynamic_starmap.py", line 28, in process_floorplans
+    u = jacobi(u0, im0, max_iter, atol)
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Dynamic_starmap.py", line 17, in jacobi
+    u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+KeyboardInterrupt
+Terminated

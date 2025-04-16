@@ -1,0 +1,26 @@
+ERROR: Unable to locate a modulefile for 'python3/3.8.11'
+ERROR: Unable to locate a modulefile for 'cuda/8.0'
+Loading cudnn/v7.0-prod-cuda8
+  Module ERROR: couldn't read file "/apps/dcc/etc/ModulesSL64/modulebase/cudnn":
+    no such file or directory
+        while executing
+    "source /apps/dcc/etc/ModulesSL64/modulebase/cudnn"
+        (file "/apps/dcc/etc/ModulesAlma92/modulefiles/cudnn/v7.0-prod-cuda8"
+    line 9)
+    Please contact <root@localhost>
+ERROR: Unable to locate a modulefile for 'ffmpeg/4.2.2'
+Loaded module: cuda/11.8
+
+real	1m40.025s
+user	6m10.883s
+sys	0m0.412s
+Traceback (most recent call last):
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Try_v2.py", line 67, in <module>
+    all_results = {bid: res for result in results_list for bid, res in result.items()}
+  File "/zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA/./Try_v2.py", line 67, in <dictcomp>
+    all_results = {bid: res for result in results_list for bid, res in result.items()}
+AttributeError: 'list' object has no attribute 'items'
+
+real	2m4.962s
+user	5m40.917s
+sys	0m0.470s

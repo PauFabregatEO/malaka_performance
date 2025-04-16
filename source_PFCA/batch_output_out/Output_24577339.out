@@ -1,0 +1,62 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24577339: <HPC_mini_project_v0_pfca> in cluster <dcc> Exited
+
+Job <HPC_mini_project_v0_pfca> was submitted from host <hpclogin1> by user <pfca> in cluster <dcc> at Mon Apr  7 16:42:25 2025
+Job was executed on host(s) <4*n-62-11-57>, in queue <hpc>, as user <pfca> in cluster <dcc> at Mon Apr  7 16:42:27 2025
+</zhome/3e/b/164967> was used as the home directory.
+</zhome/3e/b/164967/Documents/HPC_02613/malaka_performance/source_PFCA> was used as the working directory.
+Started at Mon Apr  7 16:42:27 2025
+Terminated at Mon Apr  7 16:42:36 2025
+Results reported at Mon Apr  7 16:42:36 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J HPC_mini_project_v0_pfca
+#BSUB -q hpc
+#BSUB -o batch_output_out/Output_%J.out
+#BSUB -e batch_output_err/Output_%J.err
+#BSUB -W 00:15
+#BSUB -n 4
+#BSUB -R "rusage[mem=512MB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model == XeonGold6226R]"
+# -- end of LSF options -- 
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+#kernprof -l simulate.py
+time Try.py 24 8
+time simulate_static_scheduling.py 24 8
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   32.10 sec.
+    Max Memory :                                 137 MB
+    Average Memory :                             137.00 MB
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               1911.00 MB
+    Max Swap :                                   -
+    Max Processes :                              12
+    Max Threads :                                16
+    Run time :                                   47 sec.
+    Turnaround time :                            11 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <batch_output_err/Output_24577339.err> for stderr output of this job.
+
