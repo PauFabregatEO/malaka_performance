@@ -1,7 +1,7 @@
 #!/bin/bash
 #BSUB -J timing
 #BSUB -q hpc
-#BSUB -W 3:00
+#BSUB -W 16:00
 #BSUB -n 20
 #BSUB -R "rusage[mem=512MB]"
 #BSUB -R "span[hosts=1]"

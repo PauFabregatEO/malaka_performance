@@ -12,6 +12,7 @@ def reader(n):
 
 x = range(1, 21)
 
+chunk1 = reader(1)
 chunk2 = reader(2)
 chunk3 = reader(3)
 chunk4 = reader(4)
@@ -19,7 +20,7 @@ chunk5 = reader(5)
 
 # Plot
 plt.figure(figsize=(10, 6))
-# plt.plot(x, chunk_original, label='Chunk Size 1')
+plt.plot(x, chunk1, label='Chunk Size = images/n_proc')
 plt.plot(x, chunk2, label='Chunk Size /2')
 plt.plot(x, chunk3, label='Chunk Size /3')
 plt.plot(x, chunk4, label='Chunk Size /4')
@@ -33,4 +34,4 @@ plt.grid(True)
 plt.tight_layout()
 
 # Save as PNG
-plt.savefig('speedup_comparison.png', dpi=300)  # dpi=300 for high quality
+plt.savefig('speedup_comparison.png', dpi=300) 

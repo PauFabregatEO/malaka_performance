@@ -17,6 +17,17 @@
                     "localRoot": "${workspaceFolder}",
                 }
             ]
-        }
+        },
+
+        {
+            "name": "Python: Debug CUDA Sim",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "/zhome/2c/a/213957/malaka_performance/source_MMB/ex8/gpu_cuda.py",
+            "env": {
+              "NUMBA_ENABLE_CUDASIM": "1"
+            },
+            "args": ["1"]
+          }
     ]
 }

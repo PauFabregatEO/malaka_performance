@@ -1,0 +1,57 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24736539: <jit_std> in cluster <dcc> Exited
+
+Job <jit_std> was submitted from host <n-62-27-22> by user <s242777> in cluster <dcc> at Sat Apr 19 13:42:03 2025
+Job was executed on host(s) <n-62-11-67>, in queue <hpc>, as user <s242777> in cluster <dcc> at Sat Apr 19 13:42:05 2025
+</zhome/2c/a/213957> was used as the home directory.
+</zhome/2c/a/213957/malaka_performance/source_MMB/ex7> was used as the working directory.
+Started at Sat Apr 19 13:42:05 2025
+Terminated at Sat Apr 19 16:42:35 2025
+Results reported at Sat Apr 19 16:42:35 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J jit_std
+#BSUB -q hpc
+#BSUB -W 3:00
+#BSUB -n 1
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R "select[model == XeonGold6226R]"
+#BSUB -o output/jit_std_image_%J.out
+#BSUB -e output/jit_std_image_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python jit_standard.py 100
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   10829.00 sec.
+    Max Memory :                                 299 MB
+    Average Memory :                             284.09 MB
+    Total Requested Memory :                     1024.00 MB
+    Delta Memory :                               725.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   10830 sec.
+    Turnaround time :                            10832 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <output/jit_std_image_24736539.err> for stderr output of this job.
+

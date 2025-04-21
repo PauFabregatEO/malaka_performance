@@ -1,0 +1,425 @@
+jacobi_jit (Array(float64, 2, 'C', False, aligned=True), Array(bool, 2, 'C', False, aligned=True), int64, float64)
+--------------------------------------------------------------------------------
+# File: /zhome/2c/a/213957/malaka_performance/source_MMB/ex7/jit_implementation.py
+# --- LINE 22 --- 
+# label 0
+#   u = arg(0, name=u)  :: array(float64, 2d, C)
+#   interior_mask = arg(1, name=interior_mask)  :: array(bool, 2d, C)
+#   max_iter = arg(2, name=max_iter)  :: int64
+#   atol = arg(3, name=atol)  :: float64
+
+@njit(cache=True)
+
+# --- LINE 23 --- 
+
+def jacobi_jit(u, interior_mask, max_iter, atol=1e-6):
+
+    # --- LINE 24 --- 
+    #   $6load_method.2 = getattr(value=u, attr=copy)  :: BoundFunction(array.copy for array(float64, 2d, C))
+    #   del u
+    #   u.1 = call $6load_method.2(func=$6load_method.2, args=[], kws=(), vararg=None, varkwarg=None, target=None)  :: () -> array(float64, 2d, C)
+    #   del $6load_method.2
+    #   u.1.2 = u.1  :: array(float64, 2d, C)
+
+    u = u.copy()
+
+    # --- LINE 25 --- 
+    #   $46load_attr.5 = getattr(value=u.1, attr=shape)  :: UniTuple(int64 x 2)
+    #   $const56.6 = const(int, 0)  :: Literal[int](0)
+    #   $58binary_subscr.7 = static_getitem(value=$46load_attr.5, index=0, index_var=$const56.6, fn=<built-in function getitem>)  :: int64
+    #   del $const56.6
+    #   del $46load_attr.5
+    #   $const68.8 = const(int, 2)  :: Literal[int](2)
+    #   SIZE = $58binary_subscr.7 - $const68.8  :: int64
+    #   del $const68.8
+    #   del $58binary_subscr.7
+
+    SIZE = u.shape[0] - 2
+
+    # --- LINE 26 --- 
+    #   $76load_global.10 = global(np: <module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)  :: Module(<module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)
+    #   $88load_attr.12 = getattr(value=$76load_global.10, attr=empty_like)  :: Function(<built-in function empty_like>)
+    #   del $76load_global.10
+    #   u_new = call $88load_attr.12(u.1, func=$88load_attr.12, args=[Var(u.1, jit_implementation.py:24)], kws=(), vararg=None, varkwarg=None, target=None)  :: (Array(float64, 2, 'C', False, aligned=True), omitted(default=None)) -> array(float64, 2d, C)
+    #   del u.1
+    #   del $88load_attr.12
+
+    u_new = np.empty_like(u)
+
+    # --- LINE 27 --- 
+    #   $116load_global.15 = global(np: <module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)  :: Module(<module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)
+    #   $128load_attr.17 = getattr(value=$116load_global.15, attr=empty)  :: Function(<built-in function empty>)
+    #   del $116load_global.15
+    #   $const_512 = const(int, 512)  :: Literal[int](512)
+    #   $const_512.1 = const(int, 512)  :: Literal[int](512)
+    #   $const138.18 = build_tuple(items=[Var($const_512, jit_implementation.py:27), Var($const_512.1, jit_implementation.py:27)])  :: UniTuple(Literal[int](512) x 2)
+    #   del $const_512.1
+    #   del $const_512
+    #   $140load_global.19 = global(np: <module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)  :: Module(<module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)
+    #   $152load_attr.20 = getattr(value=$140load_global.19, attr=float32)  :: class(float32)
+    #   del $140load_global.19
+    #   delta = call $128load_attr.17($const138.18, func=$128load_attr.17, args=[Var($const138.18, jit_implementation.py:27)], kws=[('dtype', Var($152load_attr.20, jit_implementation.py:27))], vararg=None, varkwarg=None, target=None)  :: (UniTuple(int64, 2), class(float32)) -> array(float32, 2d, C)
+    #   del $const138.18
+    #   del $152load_attr.20
+    #   del $128load_attr.17
+
+    delta =np.empty((512, 512), dtype=np.float32)
+
+# --- LINE 28 --- 
+
+
+
+    # --- LINE 29 --- 
+    #   $180load_global.22 = global(range: <class 'range'>)  :: Function(<class 'range'>)
+    #   $198call.25 = call $180load_global.22(max_iter, func=$180load_global.22, args=[Var(max_iter, jit_implementation.py:22)], kws=(), vararg=None, varkwarg=None, target=None)  :: (int64,) -> range_state_int64
+    #   del max_iter
+    #   del $180load_global.22
+    #   $208get_iter.26 = getiter(value=$198call.25)  :: range_iter_int64
+    #   del $198call.25
+    #   $phi210.0 = $208get_iter.26  :: range_iter_int64
+    #   del $208get_iter.26
+    #   jump 210
+    # label 210
+    #   $210for_iter.1 = iternext(value=$phi210.0)  :: pair<int64, bool>
+    #   $210for_iter.2 = pair_first(value=$210for_iter.1)  :: int64
+    #   $210for_iter.3 = pair_second(value=$210for_iter.1)  :: bool
+    #   del $210for_iter.1
+    #   $phi212.1 = $210for_iter.2  :: int64
+    #   del $210for_iter.2
+    #   branch $210for_iter.3, 212, 628
+    # label 212
+    #   del $210for_iter.3
+    #   it = $phi212.1  :: int64
+    #   del it
+    #   del $phi212.1
+
+    for it in range(max_iter):
+
+        # --- LINE 30 --- 
+
+        # i outer so better cache wise
+
+        # --- LINE 31 --- 
+        #   $214load_global.2 = global(range: <class 'range'>)  :: Function(<class 'range'>)
+        #   $const226.4 = const(int, 1)  :: Literal[int](1)
+        #   $const230.6 = const(int, 1)  :: Literal[int](1)
+        #   $binop_add232.7 = SIZE + $const230.6  :: int64
+        #   del $const230.6
+        #   $240call.8 = call $214load_global.2($const226.4, $binop_add232.7, func=$214load_global.2, args=[Var($const226.4, jit_implementation.py:31), Var($binop_add232.7, jit_implementation.py:31)], kws=(), vararg=None, varkwarg=None, target=None)  :: (int64, int64) -> range_state_int64
+        #   del $const226.4
+        #   del $binop_add232.7
+        #   del $214load_global.2
+        #   $250get_iter.9 = getiter(value=$240call.8)  :: range_iter_int64
+        #   del $240call.8
+        #   $phi252.1 = $250get_iter.9  :: range_iter_int64
+        #   del $250get_iter.9
+        #   jump 252
+        # label 252
+        #   $252for_iter.2 = iternext(value=$phi252.1)  :: pair<int64, bool>
+        #   $252for_iter.3 = pair_first(value=$252for_iter.2)  :: int64
+        #   $252for_iter.4 = pair_second(value=$252for_iter.2)  :: bool
+        #   del $252for_iter.2
+        #   $phi254.2 = $252for_iter.3  :: int64
+        #   del $252for_iter.3
+        #   branch $252for_iter.4, 254, 570
+        # label 254
+        #   del $252for_iter.4
+        #   i = $phi254.2  :: int64
+        #   del $phi254.2
+
+        for i in range(1, SIZE + 1):
+
+            # --- LINE 32 --- 
+
+            # j inner to avoid cache misses as indexing is done column-wise
+
+            # --- LINE 33 --- 
+            #   $256load_global.3 = global(range: <class 'range'>)  :: Function(<class 'range'>)
+            #   $const268.5 = const(int, 1)  :: Literal[int](1)
+            #   $const272.7 = const(int, 1)  :: Literal[int](1)
+            #   $binop_add274.8 = SIZE + $const272.7  :: int64
+            #   del $const272.7
+            #   $282call.9 = call $256load_global.3($const268.5, $binop_add274.8, func=$256load_global.3, args=[Var($const268.5, jit_implementation.py:33), Var($binop_add274.8, jit_implementation.py:33)], kws=(), vararg=None, varkwarg=None, target=None)  :: (int64, int64) -> range_state_int64
+            #   del $const268.5
+            #   del $binop_add274.8
+            #   del $256load_global.3
+            #   $292get_iter.10 = getiter(value=$282call.9)  :: range_iter_int64
+            #   del $282call.9
+            #   $phi294.2 = $292get_iter.10  :: range_iter_int64
+            #   del $292get_iter.10
+            #   jump 294
+            # label 294
+            #   $294for_iter.3 = iternext(value=$phi294.2)  :: pair<int64, bool>
+            #   $294for_iter.4 = pair_first(value=$294for_iter.3)  :: int64
+            #   $294for_iter.5 = pair_second(value=$294for_iter.3)  :: bool
+            #   del $294for_iter.3
+            #   $phi296.3 = $294for_iter.4  :: int64
+            #   del $294for_iter.4
+            #   branch $294for_iter.5, 296, 568
+            # label 296
+            #   del $294for_iter.5
+            #   j = $phi296.3  :: int64
+            #   del $phi296.3
+            # label 568
+            #   del i
+            #   del $phi296.3
+            #   del $phi294.2
+            #   del $294for_iter.5
+            #   jump 252
+            # label 629
+            #   jump 294
+
+            for j in range(1, SIZE + 1):
+
+                # --- LINE 34 --- 
+
+                # Check if cell is inside the mask
+
+                # --- LINE 35 --- 
+                #   $const302.6 = const(int, 1)  :: Literal[int](1)
+                #   $binop_sub304.7 = i - $const302.6  :: int64
+                #   del $const302.6
+                #   $const310.9 = const(int, 1)  :: Literal[int](1)
+                #   $binop_sub312.10 = j - $const310.9  :: int64
+                #   del $const310.9
+                #   $316build_tuple.11 = build_tuple(items=[Var($binop_sub304.7, jit_implementation.py:35), Var($binop_sub312.10, jit_implementation.py:35)])  :: UniTuple(int64 x 2)
+                #   del $binop_sub312.10
+                #   del $binop_sub304.7
+                #   $318binary_subscr.12 = getitem(value=interior_mask, index=$316build_tuple.11, fn=<built-in function getitem>)  :: bool
+                #   del $316build_tuple.11
+                #   bool328 = global(bool: <class 'bool'>)  :: Function(<class 'bool'>)
+                #   $328pred = call bool328($318binary_subscr.12, func=bool328, args=(Var($318binary_subscr.12, jit_implementation.py:35),), kws=(), vararg=None, varkwarg=None, target=None)  :: (bool,) -> bool
+                #   del bool328
+                #   del $318binary_subscr.12
+                #   branch $328pred, 330, 536
+
+                if interior_mask[i - 1, j - 1]:
+
+                    # --- LINE 36 --- 
+                    # label 330
+                    #   del $328pred
+                    #   $const330.3 = const(float, 0.25)  :: float64
+                    #   $const336.6 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_add338.7 = i + $const336.6  :: int64
+                    #   del $const336.6
+                    #   $344build_tuple.9 = build_tuple(items=[Var($binop_add338.7, jit_implementation.py:36), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   del $binop_add338.7
+                    #   $346binary_subscr.10 = getitem(value=u.1.2, index=$344build_tuple.9, fn=<built-in function getitem>)  :: float64
+                    #   del $344build_tuple.9
+                    #   $const360.13 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_sub362.14 = i - $const360.13  :: int64
+                    #   del $const360.13
+                    #   $368build_tuple.16 = build_tuple(items=[Var($binop_sub362.14, jit_implementation.py:36), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   del $binop_sub362.14
+                    #   $370binary_subscr.17 = getitem(value=u.1.2, index=$368build_tuple.16, fn=<built-in function getitem>)  :: float64
+                    #   del $368build_tuple.16
+                    #   $binop_add380.18 = $346binary_subscr.10 + $370binary_subscr.17  :: float64
+                    #   del $370binary_subscr.17
+                    #   del $346binary_subscr.10
+                    #   $const390.22 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_add392.23 = j + $const390.22  :: int64
+                    #   del $const390.22
+                    #   $396build_tuple.24 = build_tuple(items=[Var(i, jit_implementation.py:31), Var($binop_add392.23, jit_implementation.py:36)])  :: UniTuple(int64 x 2)
+                    #   del $binop_add392.23
+                    #   $398binary_subscr.25 = getitem(value=u.1.2, index=$396build_tuple.24, fn=<built-in function getitem>)  :: float64
+                    #   del $396build_tuple.24
+                    #   $binop_add408.26 = $binop_add380.18 + $398binary_subscr.25  :: float64
+                    #   del $binop_add380.18
+                    #   del $398binary_subscr.25
+                    #   $const418.30 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_sub420.31 = j - $const418.30  :: int64
+                    #   del $const418.30
+                    #   $424build_tuple.32 = build_tuple(items=[Var(i, jit_implementation.py:31), Var($binop_sub420.31, jit_implementation.py:36)])  :: UniTuple(int64 x 2)
+                    #   del $binop_sub420.31
+                    #   $426binary_subscr.33 = getitem(value=u.1.2, index=$424build_tuple.32, fn=<built-in function getitem>)  :: float64
+                    #   del $424build_tuple.32
+                    #   $binop_add436.34 = $binop_add408.26 + $426binary_subscr.33  :: float64
+                    #   del $binop_add408.26
+                    #   del $426binary_subscr.33
+                    #   val = $const330.3 * $binop_add436.34  :: float64
+                    #   del $const330.3
+                    #   del $binop_add436.34
+
+                    val = 0.25 * (u[i+1, j] + u[i-1, j] + u[i, j+1] + u[i, j-1])
+
+                    # --- LINE 37 --- 
+                    #   $446load_global.36 = global(abs: <built-in function abs>)  :: Function(<built-in function abs>)
+                    #   $464build_tuple.41 = build_tuple(items=[Var(i, jit_implementation.py:31), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   $466binary_subscr.42 = getitem(value=u.1.2, index=$464build_tuple.41, fn=<built-in function getitem>)  :: float64
+                    #   del $464build_tuple.41
+                    #   $binop_sub478.44 = $466binary_subscr.42 - val  :: float64
+                    #   del $466binary_subscr.42
+                    #   $486call.45 = call $446load_global.36($binop_sub478.44, func=$446load_global.36, args=[Var($binop_sub478.44, jit_implementation.py:37)], kws=(), vararg=None, varkwarg=None, target=None)  :: (float64,) -> float64
+                    #   del $binop_sub478.44
+                    #   del $446load_global.36
+                    #   $const500.48 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_sub502.49 = i - $const500.48  :: int64
+                    #   del $const500.48
+                    #   $const508.51 = const(int, 1)  :: Literal[int](1)
+                    #   $binop_sub510.52 = j - $const508.51  :: int64
+                    #   del $const508.51
+                    #   $514build_tuple.53 = build_tuple(items=[Var($binop_sub502.49, jit_implementation.py:37), Var($binop_sub510.52, jit_implementation.py:37)])  :: UniTuple(int64 x 2)
+                    #   del $binop_sub510.52
+                    #   del $binop_sub502.49
+                    #   delta[$514build_tuple.53] = $486call.45  :: (Array(float32, 2, 'C', False, aligned=True), UniTuple(int64, 2), float64) -> none
+                    #   del $514build_tuple.53
+                    #   del $486call.45
+
+                    delta[i - 1, j - 1] = abs(u[i, j] - val)
+
+                    # --- LINE 38 --- 
+                    #   $528build_tuple.58 = build_tuple(items=[Var(i, jit_implementation.py:31), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   del j
+                    #   u_new[$528build_tuple.58] = val  :: (Array(float64, 2, 'C', False, aligned=True), UniTuple(int64, 2), float64) -> none
+                    #   del val
+                    #   del $528build_tuple.58
+                    #   jump 629
+
+                    u_new[i, j] = val
+
+                # --- LINE 39 --- 
+
+                else:
+
+                    # --- LINE 40 --- 
+                    # label 536
+                    #   del $328pred
+                    #   $542build_tuple.6 = build_tuple(items=[Var(i, jit_implementation.py:31), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   $544binary_subscr.7 = getitem(value=u.1.2, index=$542build_tuple.6, fn=<built-in function getitem>)  :: float64
+                    #   del $542build_tuple.6
+                    #   $560build_tuple.11 = build_tuple(items=[Var(i, jit_implementation.py:31), Var(j, jit_implementation.py:33)])  :: UniTuple(int64 x 2)
+                    #   del j
+                    #   u_new[$560build_tuple.11] = $544binary_subscr.7  :: (Array(float64, 2, 'C', False, aligned=True), UniTuple(int64, 2), float64) -> none
+                    #   del $560build_tuple.11
+                    #   del $544binary_subscr.7
+                    #   jump 629
+
+                    u_new[i, j] = u[i, j]
+
+# --- LINE 41 --- 
+
+
+
+        # --- LINE 42 --- 
+        # label 570
+        #   del $phi254.2
+        #   del $phi252.1
+        #   del $252for_iter.4
+        #   $570load_global.1 = global(np: <module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)  :: Module(<module 'numpy' from '/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numpy/__init__.py'>)
+        #   $582load_attr.3 = getattr(value=$570load_global.1, attr=max)  :: Function(<function max at 0x7f9f36e38900>)
+        #   del $570load_global.1
+        #   $598call.5 = call $582load_attr.3(delta, func=$582load_attr.3, args=[Var(delta, jit_implementation.py:27)], kws=(), vararg=None, varkwarg=None, target=None)  :: (Array(float32, 2, 'C', False, aligned=True),) -> float32
+        #   del $582load_attr.3
+        #   $610compare_op.7 = $598call.5 < atol  :: bool
+        #   del $598call.5
+        #   bool616 = global(bool: <class 'bool'>)  :: Function(<class 'bool'>)
+        #   $616pred = call bool616($610compare_op.7, func=bool616, args=(Var($610compare_op.7, jit_implementation.py:42),), kws=(), vararg=None, varkwarg=None, target=None)  :: (bool,) -> bool
+        #   del bool616
+        #   del $610compare_op.7
+        #   branch $616pred, 618, 622
+
+        if np.max(delta) < atol:
+
+            # --- LINE 43 --- 
+            # label 618
+            #   del u_new
+            #   del interior_mask
+            #   del delta
+            #   del atol
+            #   del SIZE
+            #   del $phi210.0
+            #   del $616pred
+            #   jump 628
+
+            break
+
+# --- LINE 44 --- 
+
+
+
+        # --- LINE 45 --- 
+        # label 622
+        #   del $616pred
+        #   u.1.1 = u_new  :: array(float64, 2d, C)
+        #   u.1.2 = u.1.1  :: array(float64, 2d, C)
+        #   del u.1.1
+        #   jump 210
+
+        u = u_new
+
+    # --- LINE 46 --- 
+    # label 628
+    #   del u_new
+    #   del interior_mask
+    #   del delta
+    #   del atol
+    #   del SIZE
+    #   del $phi212.1
+    #   del $phi210.0
+    #   del $210for_iter.3
+    #   $630return_value.1 = cast(value=u.1.2)  :: array(float64, 2d, C)
+    #   del u.1.2
+    #   return $630return_value.1
+
+    return u
+
+
+================================================================================
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.014424933211888, 6.36752632564244, 30.95005605583885, 55.509746482948174
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24745864: <jit> in cluster <dcc> Done
+
+Job <jit> was submitted from host <n-62-30-7> by user <s242777> in cluster <dcc> at Mon Apr 21 01:09:43 2025
+Job was executed on host(s) <n-62-11-61>, in queue <hpc>, as user <s242777> in cluster <dcc> at Mon Apr 21 01:09:45 2025
+</zhome/2c/a/213957> was used as the home directory.
+</zhome/2c/a/213957/malaka_performance/source_MMB/ex7> was used as the working directory.
+Started at Mon Apr 21 01:09:45 2025
+Terminated at Mon Apr 21 01:09:53 2025
+Results reported at Mon Apr 21 01:09:53 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J jit
+#BSUB -q hpc
+#BSUB -W 3:00
+#BSUB -n 1
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R "select[model == XeonGold6226R]"
+#BSUB -o output/jit_image_%J.out
+#BSUB -e output/jit_image_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python jit_implementation.py 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.18 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     1024.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   100 sec.
+    Turnaround time :                            10 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <output/jit_image_24745864.err> for stderr output of this job.
+
