@@ -1,0 +1,57 @@
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24773590: <cuda7000_all_images> in cluster <dcc> Exited
+
+Job <cuda7000_all_images> was submitted from host <hpclogin1> by user <s242777> in cluster <dcc> at Wed Apr 23 17:50:09 2025
+Job was executed on host(s) <4*n-62-20-13>, in queue <gpuv100>, as user <s242777> in cluster <dcc> at Wed Apr 23 17:50:51 2025
+</zhome/2c/a/213957> was used as the home directory.
+</zhome/2c/a/213957/malaka_performance/source_MMB/ex12> was used as the working directory.
+Started at Wed Apr 23 17:50:51 2025
+Terminated at Wed Apr 23 17:53:01 2025
+Results reported at Wed Apr 23 17:53:01 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+#BSUB -q gpuv100
+#BSUB -J cuda7000_all_images
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "select[gpu32gb]"
+#BSUB -W 3:00
+#BSUB -o output/cuda7000_all_im_%J.out
+#BSUB -e output/cuda7000_all_im_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python "gpu_cuda.py" 4571
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   106.37 sec.
+    Max Memory :                                 10480 MB
+    Average Memory :                             7833.67 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               22288.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                7
+    Run time :                                   131 sec.
+    Turnaround time :                            172 sec.
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <output/cuda7000_all_im_24773590.err> for stderr output of this job.
+

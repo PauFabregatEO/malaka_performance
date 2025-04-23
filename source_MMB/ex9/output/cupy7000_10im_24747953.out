@@ -1,0 +1,68 @@
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.016693478047694, 6.3676484818705585, 30.966330331633575, 55.47538967849264
+10009, 11.008222203205928, 5.809700518083411, 16.688863202331895, 74.9409488390793
+10014, 14.73037604922121, 7.045435899949541, 38.23212068158222, 52.86740905111866
+10019, 14.72287059205255, 7.037382833672098, 38.12067018646809, 52.97606331573432
+10029, 10.622471797371622, 6.312487679344993, 18.25563221896085, 74.51301795448481
+10031, 12.517992078501871, 6.276293094621209, 24.077129305011344, 66.33621070618389
+10051, 13.290568693587781, 5.999000745442376, 25.97693550756574, 62.84890553841633
+10053, 11.374042829146427, 6.2590992031016635, 19.957686882933707, 72.39289492242595
+10056, 14.22156228947154, 6.179404507754319, 31.770664359612127, 57.05454021123968
+10064, 12.721302497663846, 6.964235432563305, 28.812768068158608, 62.73840438051332
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24747953: <cupy7000_100images> in cluster <dcc> Done
+
+Job <cupy7000_100images> was submitted from host <n-62-27-19> by user <s242777> in cluster <dcc> at Mon Apr 21 21:53:01 2025
+Job was executed on host(s) <4*n-62-12-22>, in queue <c02613>, as user <s242777> in cluster <dcc> at Mon Apr 21 21:53:03 2025
+</zhome/2c/a/213957> was used as the home directory.
+</zhome/2c/a/213957/malaka_performance/source_MMB/ex9> was used as the working directory.
+Started at Mon Apr 21 21:53:03 2025
+Terminated at Mon Apr 21 21:53:26 2025
+Results reported at Mon Apr 21 21:53:26 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+#BSUB -q c02613
+#BSUB -J cupy7000_100images
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=512MB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -W 3:00
+#BSUB -o output/cupy7000_100im_%J.out
+#BSUB -e output/cupy7000_100im_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python "gpu_cupy.py" 10
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   18.52 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   0 sec.
+    Turnaround time :                            25 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <output/cupy7000_100im_24747953.err> for stderr output of this job.
+
