@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import norm
 
 # import debugpy
 
@@ -11,16 +13,26 @@ import matplotlib.pyplot as plt
 # Read the data
 df = pd.read_csv("computation.txt")
 
-# Show the first few rows to verify
-print(df.head())
+data = df[" mean_temp"]
 
+# Fit a normal distribution: get mean (mu) and std (sigma)
+mu, sigma = norm.fit(data)
 
-# EXERCISE 1
+# Plot the histogram
+plt.hist(data, bins=20, density=True, alpha=0.6, color='skyblue', edgecolor='black', label='Histogram')
 
-plt.hist(df[" mean_temp"], bins=20, color='skyblue', edgecolor='black')
-plt.title("Distribution of Mean Temperatures")
+# Generate x values and corresponding PDF values
+x = np.linspace(min(data), max(data), 100)
+pdf = norm.pdf(x, mu, sigma)
+
+# Plot the PDF
+plt.plot(x, pdf, 'r-', label=f'Normal fit\nμ={mu:.2f}, σ={sigma:.2f}')
+
+# Labels and legend
+plt.title("Histogram of Mean Temperatures with Normal Fit")
 plt.xlabel("Mean Temperature (°C)")
-plt.ylabel("Number of Buildings")
+plt.ylabel("Density")
+plt.legend()
 plt.grid(True)
 plt.savefig('temperature distribution.png', dpi=300)
 
