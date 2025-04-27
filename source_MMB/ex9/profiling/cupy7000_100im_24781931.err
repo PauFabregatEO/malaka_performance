@@ -1,9 +1,0 @@
-Loaded module: cuda/11.8
-WARNING: CPU IP/backtrace sampling not supported, disabling.
-Try the 'nsys status --environment' command to learn more.
-
-WARNING: CPU context switch tracing not supported, disabling.
-Try the 'nsys status --environment' command to learn more.
-
-Failed to create '/zhome/2c/a/213957/malaka_performance/source_MMB/ex9/profiler_nsys_ex10.nsys-rep': File exists.
-Use `--force-overwrite true` to overwrite existing files.

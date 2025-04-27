@@ -33,7 +33,7 @@ def summary_stats(u, interior_mask):
     }
 
 
-def jacobi_gpu_cupy(u, interior_mask, max_iter=7000):
+def jacobi_gpu_cupy(u, interior_mask, max_iter=20000):
     u_device = cp.asarray(u)
     u_new_device = cp.copy(u_device)
     mask_device = cp.asarray(interior_mask)

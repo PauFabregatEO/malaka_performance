@@ -45,7 +45,7 @@ def jacobi_kernel(u, u_new, mask):
             new_val = 0.25 * (u[z, i+1, j] + u[z, i-1, j] + u[z, i, j+1] + u[z, i, j-1])
             u_new[z, i, j] = new_val
 
-def jacobi_gpu(u, interior_mask, max_iter=7000):
+def jacobi_gpu(u, interior_mask, max_iter=20_000):
 
     # Send everything to memory in the GPU
 
