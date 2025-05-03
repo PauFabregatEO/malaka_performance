@@ -1,0 +1,97 @@
+Running async with 1 processes...
+Finished async run with 1 processes.
+Running async with 2 processes...
+Finished async run with 2 processes.
+Running async with 3 processes...
+Finished async run with 3 processes.
+Running async with 4 processes...
+Finished async run with 4 processes.
+Running async with 5 processes...
+Finished async run with 5 processes.
+Running async with 6 processes...
+Finished async run with 6 processes.
+Running async with 7 processes...
+Finished async run with 7 processes.
+Running async with 8 processes...
+Finished async run with 8 processes.
+Running async with 9 processes...
+Finished async run with 9 processes.
+Running async with 10 processes...
+Finished async run with 10 processes.
+Running async with 11 processes...
+Finished async run with 11 processes.
+Running async with 12 processes...
+Finished async run with 12 processes.
+Running async with 13 processes...
+Finished async run with 13 processes.
+Running async with 14 processes...
+Finished async run with 14 processes.
+Running async with 15 processes...
+Finished async run with 15 processes.
+Running async with 16 processes...
+Finished async run with 16 processes.
+Running async with 17 processes...
+Finished async run with 17 processes.
+Running async with 18 processes...
+Finished async run with 18 processes.
+Running async with 19 processes...
+Finished async run with 19 processes.
+Running async with 20 processes...
+Finished async run with 20 processes.
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24735414: <timing_async1> in cluster <dcc> Done
+
+Job <timing_async1> was submitted from host <n-62-27-17> by user <s242777> in cluster <dcc> at Fri Apr 18 21:18:02 2025
+Job was executed on host(s) <20*n-62-11-60>, in queue <hpc>, as user <s242777> in cluster <dcc> at Fri Apr 18 22:29:31 2025
+</zhome/2c/a/213957> was used as the home directory.
+</zhome/2c/a/213957/malaka_performance/source_MMB/Amdahl_simulations_async> was used as the working directory.
+Started at Fri Apr 18 22:29:31 2025
+Terminated at Sat Apr 19 00:07:27 2025
+Results reported at Sat Apr 19 00:07:27 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J timing_async1
+#BSUB -q hpc
+#BSUB -W 3:00
+#BSUB -n 20
+#BSUB -R "rusage[mem=512MB]"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model == XeonGold6226R]"
+#BSUB -o output/one_image_%J.out
+#BSUB -e output/one_image_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+python -u "simulate1_async.py" 100
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   38884.70 sec.
+    Max Memory :                                 1415 MB
+    Average Memory :                             992.07 MB
+    Total Requested Memory :                     10240.00 MB
+    Delta Memory :                               8825.00 MB
+    Max Swap :                                   -
+    Max Processes :                              24
+    Max Threads :                                28
+    Run time :                                   5877 sec.
+    Turnaround time :                            10165 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <output/one_image_24735414.err> for stderr output of this job.
+

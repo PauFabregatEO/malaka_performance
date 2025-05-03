@@ -4,6 +4,14 @@ import numpy as np
 import multiprocessing as mp
 from time import perf_counter as time
 
+# import debugpy
+
+# debugpy.listen(('0.0.0.0', 5677))
+# print('Wait for debugger...')
+# debugpy.wait_for_client()
+# print('Connected!')
+
+
 def load_data(load_dir, bid):
     SIZE = 512
     u = np.zeros((SIZE + 2, SIZE + 2))
@@ -11,6 +19,7 @@ def load_data(load_dir, bid):
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
 
+# @profile
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
     u = np.copy(u)
 
@@ -41,21 +50,9 @@ def summary_stats(u, interior_mask):
 
 
 def async_jacobi_worker(args):
-    u0_all, mask_all = args
-    u_compute = np.empty_like(u0_all)
-    for i, (u0, mask) in enumerate(zip(u0_all, mask_all)):
-        u_compute[i] = jacobi(u0, mask, MAX_ITER)
-    return u_compute
+    u0, mask = args
+    return jacobi(u0, mask, MAX_ITER, ABS_TOL)
 
-def generate_chunks(num_workers, num_images):
-    '''This generates the indices'''
-    items_chunk = num_images // num_workers
-    full_chunks = [items_chunk] * num_workers
-    for i, chunk in enumerate(full_chunks, start=1):
-        full_chunks[i-1] = i * chunk 
-        full_chunks = full_chunks[:-1]
-        full_chunks.append(N)
-    return full_chunks
 
 def compute_speedup(x, y):
     """
@@ -72,7 +69,7 @@ def compute_speedup(x, y):
     y_speedup = [y[0] / val for val in y]
 
     # Now, save the list as a text file 
-    with open('static chunk.txt', "w") as p:
+    with open('1 images per chunk.txt', "w") as p:
         for n in range(len(y_speedup)):
                 p.write(f'{y_speedup[n]}\n')
 
@@ -116,25 +113,23 @@ if __name__ == '__main__':
         
         pool = mp.Pool(processes=num_processes)
         results = []
-        slices = generate_chunks(num_processes, N)
-        old = 0
-        for i in slices:
-            args = (all_u0[old: i], all_interior_mask[old: i])
+        
+        # Feed one image + mask pair per task
+        for i in range(N):
+            args = (all_u0[i], all_interior_mask[i])
             results.append(pool.apply_async(async_jacobi_worker, (args,)))
-            # For indexing
-            old = i
+
         # Collect results
         result_matrices = [r.get() for r in results]
         time_proc[num_processes - 1] = time() - t
-        flattened_results = np.concatenate(result_matrices, axis=0)
-        
+
         pool.close()
         pool.join()
 
-        
         print(f"Finished async run with {num_processes} processes.")
 
-        np.copyto(all_u, flattened_results)
+        # Convert to array
+        np.copyto(all_u, np.array(result_matrices))
 
 # Save the speed-up in a text file
 compute_speedup(list(range(1, MAX_PROC + 1)), time_proc)
